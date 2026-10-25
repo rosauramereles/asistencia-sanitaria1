@@ -1,59 +1,60 @@
-import { Disponibilidad } from "../models/index.js";
+import { Mensaje } from "../models/index.js";
 
-export const createDisponibilidad = async (req, res) => {
+export const createMensaje = async (req, res) => {
 try {
-    const { dia, horaInicio, horaFin, asistenteId } = req.body;
-    if (!dia || !horaInicio || !horaFin || !asistenteId) {
+    const { texto, taskId, emisorId } = req.body;
+    if (!texto || !taskId || !emisorId) {
     return res.status(400).json({
-        message: "Debe indicar el día, el horario de inicio, el horario de fin y el asistente.",
+        message: "Debe escribir el mensaje e indicar el pedido y la persona que lo envía.",
     });
     }
-    const disponibilidad = await Disponibilidad.create({ dia, horaInicio, horaFin, asistenteId });
-    return res.status(201).json(disponibilidad);
+    const mensaje = await Mensaje.create({ texto, taskId, emisorId });
+    // TODO: acá después se envía el correo electrónico (nodemailer)
+    return res.status(201).json(mensaje);
 } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Intente nuevamente más tarde." });
 }
 };
 
-export const getAllDisponibilidades = async (req, res) => {
+export const getAllMensajes = async (req, res) => {
 try {
-    return res.status(200).json(await Disponibilidad.findAll());
+    return res.status(200).json(await Mensaje.findAll());
 } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Intente nuevamente más tarde." });
 }
 };
 
-export const getDisponibilidadById = async (req, res) => {
+export const getMensajeById = async (req, res) => {
 try {
-    const disponibilidad = await Disponibilidad.findByPk(req.params.id);
-    if (!disponibilidad) return res.status(404).json({ message: "No se encontró el horario solicitado." });
-    return res.status(200).json(disponibilidad);
+    const mensaje = await Mensaje.findByPk(req.params.id);
+    if (!mensaje) return res.status(404).json({ message: "No se encontró el mensaje solicitado." });
+    return res.status(200).json(mensaje);
 } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Intente nuevamente más tarde." });
 }
 };
 
-export const updateDisponibilidad = async (req, res) => {
+export const updateMensaje = async (req, res) => {
 try {
-    const disponibilidad = await Disponibilidad.findByPk(req.params.id);
-    if (!disponibilidad) return res.status(404).json({ message: "No se encontró el horario solicitado." });
-    await disponibilidad.update(req.body);
-    return res.status(200).json(disponibilidad);
+    const mensaje = await Mensaje.findByPk(req.params.id);
+    if (!mensaje) return res.status(404).json({ message: "No se encontró el mensaje solicitado." });
+    await mensaje.update(req.body);
+    return res.status(200).json(mensaje);
 } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Intente nuevamente más tarde." });
 }
 };
 
-export const deleteDisponibilidad = async (req, res) => {
+export const deleteMensaje = async (req, res) => {
 try {
-    const disponibilidad = await Disponibilidad.findByPk(req.params.id);
-    if (!disponibilidad) return res.status(404).json({ message: "No se encontró el horario solicitado." });
-    await disponibilidad.destroy();
-    return res.status(200).json({ message: "El horario fue eliminado correctamente." });
+    const mensaje = await Mensaje.findByPk(req.params.id);
+    if (!mensaje) return res.status(404).json({ message: "No se encontró el mensaje solicitado." });
+    await mensaje.destroy();
+    return res.status(200).json({ message: "El mensaje fue eliminado correctamente." });
 } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Intente nuevamente más tarde." });

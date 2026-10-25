@@ -1,61 +1,61 @@
-import { UserAsistente } from "../models/index.js";
+import { Task } from "../models/index.js";
 
-export const createUserAsistente = async (req, res) => {
-try {
-    const { userId, foto, descripcion, experiencia, especialidad, zona, tarifa } = req.body;
-    if (!userId) {
-    return res.status(400).json({ message: "Debe indicar el usuario al que pertenece el perfil del asistente." });
+export const createTask = async (req, res) => {
+  try {
+    const { titulo, descripcion, fecha, familiarId, asistenteId } = req.body;
+    if (!titulo || !familiarId || !asistenteId) {
+      return res.status(400).json({
+        message: "Debe completar el título del pedido e indicar el familiar y el asistente involucrados.",
+      });
     }
-    const asistente = await UserAsistente.create({
-    userId, foto, descripcion, experiencia, especialidad, zona, tarifa,
-    });
-    return res.status(201).json(asistente);
-} catch (error) {
+    const task = await Task.create({ titulo, descripcion, fecha, familiarId, asistenteId });
+    return res.status(201).json(task);
+  } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Intente nuevamente más tarde." });
-}
+    return res.status(500).json({ message: "Ocurrió un error interno del servidor. Intente nuevamente más tarde." });
+  }
 };
 
-export const getAllUserAsistentes = async (req, res) => {
-try {
-    return res.status(200).json(await UserAsistente.findAll());
-} catch (error) {
+export const getAllTasks = async (req, res) => {
+  try {
+    return res.status(200).json(await Task.findAll());
+  } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Intente nuevamente más tarde." });
-}
+    return res.status(500).json({ message: "Ocurrió un error interno del servidor. Intente nuevamente más tarde." });
+  }
 };
 
-export const getUserAsistenteById = async (req, res) => {
-try {
-    const asistente = await UserAsistente.findByPk(req.params.id);
-    if (!asistente) return res.status(404).json({ message: "No se encontró el perfil del asistente solicitado." });
-    return res.status(200).json(asistente);
-} catch (error) {
+export const getTaskById = async (req, res) => {
+  try {
+    const task = await Task.findByPk(req.params.id);
+    if (!task) return res.status(404).json({ message: "No se encontró el pedido solicitado." });
+    return res.status(200).json(task);
+  } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Intente nuevamente más tarde." });
-}
+    return res.status(500).json({ message: "Ocurrió un error interno del servidor. Intente nuevamente más tarde." });
+  }
 };
 
-export const updateUserAsistente = async (req, res) => {
-try {
-    const asistente = await UserAsistente.findByPk(req.params.id);
-    if (!asistente) return res.status(404).json({ message: "No se encontró el perfil del asistente solicitado." });
-    await asistente.update(req.body);
-    return res.status(200).json(asistente);
-} catch (error) {
+export const updateTask = async (req, res) => {
+  try {
+    const task = await Task.findByPk(req.params.id);
+    if (!task) return res.status(404).json({ message: "No se encontró el pedido solicitado." });
+    await task.update(req.body);
+    return res.status(200).json(task);
+  } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Intente nuevamente más tarde." });
-}
+    return res.status(500).json({ message: "Ocurrió un error interno del servidor. Intente nuevamente más tarde." });
+  }
 };
 
-export const deleteUserAsistente = async (req, res) => {
-try {
-    const asistente = await UserAsistente.findByPk(req.params.id);
-    if (!asistente) return res.status(404).json({ message: "No se encontró el perfil del asistente solicitado." });
-    await asistente.destroy();
-    return res.status(200).json({ message: "El perfil del asistente fue eliminado correctamente." });
-} catch (error) {
+export const deleteTask = async (req, res) => {
+  try {
+    const task = await Task.findByPk(req.params.id);
+    if (!task) return res.status(404).json({ message: "No se encontró el pedido solicitado." });
+    await task.destroy();
+    return res.status(200).json({ message: "El pedido fue eliminado correctamente." });
+  } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Intente nuevamente más tarde." });
-}
+    return res.status(500).json({ message: "Ocurrió un error interno del servidor. Intente nuevamente más tarde." });
+  }
 };
