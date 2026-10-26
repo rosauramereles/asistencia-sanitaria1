@@ -5,6 +5,9 @@ import { createMensaje,
         updateMensaje,
         deleteMensaje 
 } from "../controllers/mensaje.controller.js";
+import {validate} from "../middlewares/validate.js"
+import {createMensajeValidation, updateMensajeValidation} from "../middlewares/validations/mensaje.validation.js"
+
 
 export const mensajeRouter = Router();
 

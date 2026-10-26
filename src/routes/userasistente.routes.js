@@ -5,6 +5,8 @@ import { createUserAsistente,
         updateUserAsistente,
         deleteUserAsistente,
 } from "../controllers/userasistente.controller.js";
+import {validate} from "../middlewares/validate.js"
+import {createUserAsistenteValidation, updateUserAsistenteValidation} from "../middlewares/validations/userasistente.validation.js"
 
 export const userAsistenteRouter = Router();
 

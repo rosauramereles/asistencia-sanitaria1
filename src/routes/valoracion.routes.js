@@ -6,6 +6,8 @@ import {
     updateValoracion,
     deleteValoracion,
 } from "../controllers/valoracion.controller.js";
+import { validate } from "../middlewares/validate.js";
+import {createValoracionValidation, updateValoracionValidation} from "../middlewares/validations/valoracion.validation.js"
 
 export const valoracionRouter = Router();
 

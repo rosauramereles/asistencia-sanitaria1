@@ -5,6 +5,8 @@ import { createRole,
         getRoleById, 
         updateRole 
 } from "../controllers/role.controller.js";
+import {validate} from "../middlewares/validate.js"
+import {createRoleValidation, updateRoleValidation} from "../middlewares/validations/role.validation.js"
 
 export const roleRouter = Router();
 

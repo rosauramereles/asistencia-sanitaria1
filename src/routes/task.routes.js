@@ -5,6 +5,8 @@ import { createTask,
         updateTask,
         deleteTask 
 } from "../controllers/task.controller.js";
+import {validate} from "../middlewares/validate.js"
+import {createTaskValidation, updateTaskValidation} from "../middlewares/validations/task.validation.js"
 
 export const taskRouter = Router();
 

@@ -12,5 +12,8 @@ horaInicio: {
     allowNull: false },
 horaFin: {
     type: DataTypes.TIME, 
+    allowNull: false },
+barrio: { 
+    type: DataTypes.STRING, 
     allowNull: false }
 });

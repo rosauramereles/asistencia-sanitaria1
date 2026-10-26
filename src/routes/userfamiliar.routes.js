@@ -5,6 +5,8 @@ import { createUserFamiliar,
         getUserFamiliarById, 
         updateUserFamiliar 
 } from "../controllers/userfamiliar.controller.js";
+import {validate} from "../middlewares/validate.js"
+import {createUserFamiliarValidation, updateUserFamiliarValidation} from "../middlewares/validations/userfamiliar.validation.js"
 
 export const userFamiliarRouter = Router();
 

@@ -3,6 +3,8 @@ import { createUserRole,
         deleteUserRole, 
         getAllUserRoles
 } from "../controllers/user_role.controller.js";
+import {validate} from "../middlewares/validate.js"
+import {createUserRoleValidation} from "../middlewares/validations/user_role.validation.js"
 
 export const userRoleRouter = Router();
 

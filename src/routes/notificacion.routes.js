@@ -6,6 +6,8 @@ import {
     updateNotificacion,
     deleteNotificacion,
 } from "../controllers/notificacion.controller.js";
+import {validate} from "../middlewares/validate.js"
+import {createNotificacionValidation, updateNotificacionValidation} from "../middlewares/validations/notificacion.validation.js"
 
 export const notificacionRouter = Router();
 
