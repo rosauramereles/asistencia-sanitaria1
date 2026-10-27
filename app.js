@@ -1,3 +1,4 @@
+import "dotenv/config"
 import express from "express";
 import { startDB } from "./src/config/database.js";
 import { Role } from "./src/models/index.js"; // carga los modelos y las relaciones
@@ -13,6 +14,7 @@ import { disponibilidadRouter } from "./src/routes/disponibilidad.routes.js";
 import { mensajeRouter } from "./src/routes/mensaje.routes.js";
 import { notificacionRouter } from "./src/routes/notificacion.routes.js";
 import { valoracionRouter } from "./src/routes/valoracion.routes.js";
+import { authRouter } from "./src/routes/auth.routes.js";
 
 
 const app = express ();
@@ -33,6 +35,7 @@ app.use("/api", disponibilidadRouter);
 app.use("/api", mensajeRouter);
 app.use("/api", notificacionRouter);
 app.use("/api", valoracionRouter);
+app.use("/api", authRouter);
 
 
 app.listen(PORT, async () => {
